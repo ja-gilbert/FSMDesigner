@@ -7,7 +7,7 @@ A finite state machine (FSM) designer — build, visualize, and edit state machi
 ## Getting Started
 
 ```bash
-python main.py
+python fsm_designer.py
 ```
 
 ## License
