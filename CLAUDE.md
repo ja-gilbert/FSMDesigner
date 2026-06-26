@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 FSM Designer — an interactive tool for building/simulating finite state machines. Early stage: a
-single-file Python CLI. No external dependencies, no build step, no test suite yet.
+single-file Python CLI with a `unittest` test suite. No external dependencies (stdlib only) and no
+build step.
 
 ## Run
 
@@ -20,6 +21,18 @@ the user to choose **Moore** or **Mealy**. To exercise it non-interactively, pip
 printf '101010\nmoore\n' | python fsm_designer.py
 ```
 
+## Tests
+
+The input/validation functions are covered by `test/test_fsm_inputs.py` (stdlib `unittest`; it mocks
+`builtins.input` with a list of values to exercise the re-prompt loops). Run from the repo root:
+
+```bash
+python -m unittest discover -s test -p "test_*.py" -v
+```
+
+The test file inserts the repo root onto `sys.path`, so running the file directly
+(`python test/test_fsm_inputs.py`) works too.
+
 ## Architecture
 
 Everything lives in `fsm_designer.py`, structured as small single-purpose functions composed by
@@ -30,10 +43,12 @@ Everything lives in `fsm_designer.py`, structured as small single-purpose functi
   `1`/`2`, returns the canonical `"moore"`/`"mealy"`.
 - `main()` — wires the two prompts together, then dispatches to "run the machine".
 
-The dispatch in `main()` is currently a **placeholder** (marked with `# TODO: build the actual
-FSM here`). This is the intended seam for the next stage of work: the real Moore/Mealy simulation
-should be implemented in separate modules (e.g. `moore.py` / `mealy.py`) and called from `main()`,
-keeping `fsm_designer.py` as the input/validation/menu driver.
+The dispatch in `main()` is currently a **placeholder** — it just prints a `Running {machine_type}
+machine with input: ...` line instead of running anything. This is the intended seam for the next
+stage of work: the real Moore/Mealy simulation should be implemented in separate modules (e.g.
+`moore.py` / `mealy.py`) and called from `main()`, keeping `fsm_designer.py` as the
+input/validation/menu driver. (Moore-machine work is underway on the `feature/moore_machines`
+branch.)
 
 ## Conventions
 
