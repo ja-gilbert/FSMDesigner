@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 FSM Designer — an interactive tool for building/simulating finite state machines. Early stage: a
-single-file Python CLI with a `unittest` test suite. No external dependencies (stdlib only) and no
-build step.
+Python CLI with a test suite. No external dependencies at runtime (stdlib only) and no build step;
+`pytest` is the only dev dependency (for tests), listed in `requirements-dev.txt`.
 
 ## Run
 
@@ -24,14 +24,22 @@ printf '101010\nmoore\n' | python fsm_designer.py
 ## Tests
 
 The input/validation functions are covered by `test/test_fsm_inputs.py` (stdlib `unittest`; it mocks
-`builtins.input` with a list of values to exercise the re-prompt loops). Run from the repo root:
+`builtins.input` with a list of values to exercise the re-prompt loops). The Moore/Mealy builders
+are covered by `test/test_moore_machine.py` and `test/test_mealy_machine.py` (pytest; they assert on
+the state list returned by `build_moore_fsm` / `build_mealy_fsm`). Run from the repo root:
+
+```bash
+pip install -r requirements-dev.txt   # one-time: installs pytest
+python -m pytest -v                   # runs every test (pytest also discovers the unittest suite)
+```
+
+The unittest suite can still be run on its own with the stdlib runner:
 
 ```bash
 python -m unittest discover -s test -p "test_*.py" -v
 ```
 
-The test file inserts the repo root onto `sys.path`, so running the file directly
-(`python test/test_fsm_inputs.py`) works too.
+Each test file inserts the repo root onto `sys.path`, so imports work however the suite is launched.
 
 ## Architecture
 

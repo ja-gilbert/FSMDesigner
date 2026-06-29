@@ -8,7 +8,8 @@ class MooreMachine:
         self.nextOn0 = ""
         self.nextOn1 = ""
 
-def generate_moore_fsm(seq):
+def build_moore_fsm(seq):
+    """Build the Moore sequence-detector states for ``seq`` and return them."""
     n = len(seq)
     states = []
 
@@ -30,6 +31,13 @@ def generate_moore_fsm(seq):
                 states[i].nextOn0 = next_state
             else:
                 states[i].nextOn1 = next_state
+
+    return states
+
+
+def generate_moore_fsm(seq):
+    """Build the Moore FSM for ``seq`` and print its transition table."""
+    states = build_moore_fsm(seq)
 
     print("\nTransition Table (Moore)")
     print("-----------------------------------------------------")

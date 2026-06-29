@@ -10,7 +10,8 @@ class MealyMachine:
         self.nextOn0 = ""
         self.nextOn1 = ""
     
-def generate_mealy_fsm(seq):
+def build_mealy_fsm(seq):
+    """Build the Mealy sequence-detector states for ``seq`` and return them."""
     n = len(seq)
     states = []
 
@@ -45,6 +46,13 @@ def generate_mealy_fsm(seq):
             else:
                 states[i].nextOn1 = next_state
                 states[i].outputOn1 = output_value
+
+    return states
+
+
+def generate_mealy_fsm(seq):
+    """Build the Mealy FSM for ``seq`` and print its transition table."""
+    states = build_mealy_fsm(seq)
 
     # Print the transition table
     print("\nTransition Table (Mealy)")
