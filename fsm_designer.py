@@ -9,6 +9,7 @@ built yet; for now the run step is a placeholder.
 """
 
 from mealy_machine import generate_mealy_fsm
+from moore_machine import generate_moore_fsm
 
 
 def get_binary_string() -> str:
@@ -34,8 +35,7 @@ def main():
     if machine_type == "mealy":
         generate_mealy_fsm(binary_string)
     else:
-        print("Moore machine not implemented yet.")
-
+        generate_moore_fsm(binary_string)
 
 if __name__ == "__main__":
     main()

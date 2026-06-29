@@ -14,7 +14,7 @@ def generate_mealy_fsm(seq):
     n = len(seq)
     states = []
 
-    # Create n stateus (0 .. n-1)
+    # Create n states (0 .. n-1)
     for i in range(n):
         s = MealyMachine()
         s.name = state_letter(i)
