@@ -8,6 +8,9 @@ Mealy), and hands off to run the machine. The actual FSM simulation is not
 built yet; for now the run step is a placeholder.
 """
 
+from mealy_machine import generate_mealy_fsm
+from moore_machine import generate_moore_fsm
+
 
 def get_binary_string() -> str:
     while True:
@@ -29,8 +32,10 @@ def select_machine_type() -> str:
 def main():
     binary_string = get_binary_string()
     machine_type = select_machine_type()
-    print(f"Running {machine_type} machine with input: {binary_string}")
-
+    if machine_type == "mealy":
+        generate_mealy_fsm(binary_string)
+    else:
+        generate_moore_fsm(binary_string)
 
 if __name__ == "__main__":
     main()
