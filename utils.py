@@ -1,3 +1,9 @@
+def validate_binary_seq(seq):
+    """Raise ValueError unless 'seq' is a non-empty string of only 0s and 1s."""
+    if not seq or not all(bit in "01" for bit in seq):
+        raise ValueError("seq must be a non-empty binary string (only 0s and 1s).")
+
+
 def state_letter(i):
     """Convert an index to a state letter (A, B, C, etc.)."""
     name = ""

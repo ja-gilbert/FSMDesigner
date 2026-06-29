@@ -1,4 +1,4 @@
-from utils import state_letter, longest_prefix_match
+from utils import state_letter, longest_prefix_match, validate_binary_seq
 
 class MealyMachine:
     def __init__(self):
@@ -12,6 +12,7 @@ class MealyMachine:
     
 def build_mealy_fsm(seq):
     """Build the Mealy sequence-detector states for ``seq`` and return them."""
+    validate_binary_seq(seq)
     n = len(seq)
     states = []
 
