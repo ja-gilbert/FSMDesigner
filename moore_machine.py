@@ -1,4 +1,4 @@
-from utils import state_letter, longest_prefix_match
+from utils import state_letter, longest_prefix_match, validate_binary_seq
 
 class MooreMachine:
     def __init__(self):
@@ -10,6 +10,7 @@ class MooreMachine:
 
 def build_moore_fsm(seq):
     """Build the Moore sequence-detector states for ``seq`` and return them."""
+    validate_binary_seq(seq)
     n = len(seq)
     states = []
 
