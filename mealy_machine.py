@@ -51,11 +51,8 @@ def build_mealy_fsm(seq):
     return states
 
 
-def generate_mealy_fsm(seq):
-    """Build the Mealy FSM for ``seq`` and print its transition table."""
-    states = build_mealy_fsm(seq)
-
-    # Print the transition table
+def print_mealy_table(states):
+    """Print the transition table for already-built Mealy ``states``."""
     print("\nTransition Table (Mealy)")
     print("-----------------------------------------------------")
     print(f"{'State':<8}{'W=0 -> Next':<16}{'W=1 -> Next':<16}{'Z(0 1)'}")
@@ -63,3 +60,8 @@ def generate_mealy_fsm(seq):
 
     for state in states:
         print(f"{state.name:<8}{state.nextOn0:<16}{state.nextOn1:<16}{state.outputOn0} {state.outputOn1}")
+
+
+def generate_mealy_fsm(seq):
+    """Build the Mealy FSM for ``seq`` and print its transition table."""
+    print_mealy_table(build_mealy_fsm(seq))

@@ -36,10 +36,8 @@ def build_moore_fsm(seq):
     return states
 
 
-def generate_moore_fsm(seq):
-    """Build the Moore FSM for ``seq`` and print its transition table."""
-    states = build_moore_fsm(seq)
-
+def print_moore_table(states):
+    """Print the transition table for already-built Moore ``states``."""
     print("\nTransition Table (Moore)")
     print("-----------------------------------------------------")
     print(f"{'State':<8}{'W=0 -> Next':<16}{'W=1 -> Next':<16}{'Z'}")
@@ -47,3 +45,8 @@ def generate_moore_fsm(seq):
 
     for state in states:
         print(f"{state.name:<8}{state.nextOn0:<16}{state.nextOn1:<16}{state.output}")
+
+
+def generate_moore_fsm(seq):
+    """Build the Moore FSM for ``seq`` and print its transition table."""
+    print_moore_table(build_moore_fsm(seq))
