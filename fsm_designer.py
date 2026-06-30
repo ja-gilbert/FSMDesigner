@@ -8,8 +8,9 @@ Mealy), and hands off to run the machine. The actual FSM simulation is not
 built yet; for now the run step is a placeholder.
 """
 
-from mealy_machine import generate_mealy_fsm
-from moore_machine import generate_moore_fsm
+from diagram import render_and_open
+from mealy_machine import build_mealy_fsm, print_mealy_table
+from moore_machine import build_moore_fsm, print_moore_table
 
 
 def get_binary_string() -> str:
@@ -33,9 +34,12 @@ def main():
     binary_string = get_binary_string()
     machine_type = select_machine_type()
     if machine_type == "mealy":
-        generate_mealy_fsm(binary_string)
+        states = build_mealy_fsm(binary_string)
+        print_mealy_table(states)
     else:
-        generate_moore_fsm(binary_string)
+        states = build_moore_fsm(binary_string)
+        print_moore_table(states)
+    render_and_open(states, machine_type)
 
 if __name__ == "__main__":
     main()
