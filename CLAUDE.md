@@ -4,8 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-FSM Designer — an interactive tool for building/simulating finite state machines. Early stage: a
-Python CLI with a test suite. No external Python dependencies at runtime (stdlib only) and no build
+FSM Designer — an interactive tool for building/simulating finite state machines. A Python CLI
+with a test suite. No external Python dependencies at runtime (stdlib only) and no build
 step; `pytest` is the only dev dependency (for tests), listed in `requirements-dev.txt`. Rendering
 the state diagram to a PNG additionally uses the Graphviz `dot` **system binary** (optional): if it
 is not installed the program still writes the `.dot` source and prints how to install it.
@@ -32,7 +32,9 @@ The input/validation functions are covered by `test/test_fsm_inputs.py` (stdlib 
 are covered by `test/test_moore_machine.py` and `test/test_mealy_machine.py` (pytest; they assert on
 the state list returned by `build_moore_fsm` / `build_mealy_fsm`). The diagram renderer is covered by
 `test/test_diagram.py` (pytest; it asserts on the DOT text from `to_dot`, and has one render smoke
-test that is skipped when Graphviz `dot` is absent). Run from the repo root:
+test that is skipped when Graphviz `dot` is absent). `test/test_reference_model.py` (pytest) checks both builders against a brute-force
+reference model of a sequence detector: exhaustively for every pattern up to 4 bits and every
+input stream up to 10 bits, and on seeded random streams for every pattern up to 8 bits. Run from the repo root:
 
 ```bash
 pip install -r requirements-dev.txt   # one-time: installs pytest
