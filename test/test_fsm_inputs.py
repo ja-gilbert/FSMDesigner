@@ -41,7 +41,7 @@ class TestGetBinaryString(unittest.TestCase):
         self.assertEqual(run_with_inputs(fsm_designer.get_binary_string, [" 101", "101"]), "101")
 
     def test_rejects_empty_string(self):
-        # INTENDED (CLAUDE.md: non-empty only). FAILS until get_binary_string rejects "".
+        # An empty string is rejected; the loop re-prompts.
         self.assertEqual(run_with_inputs(fsm_designer.get_binary_string, ["", "1"]), "1")
 
 
@@ -64,7 +64,7 @@ class TestSelectMachineType(unittest.TestCase):
     def test_reprompts_on_out_of_range_number(self):
         # "3" is not a valid choice; the loop should ask again and accept "1".
         result = run_with_inputs(fsm_designer.select_machine_type, ["3", "1"])
-        self.assertIn(result, ("1", "moore"))  # tolerant of the canonicalization fix
+        self.assertEqual(result, "moore")
 
     def test_reprompts_on_empty(self):
         self.assertEqual(
@@ -72,11 +72,9 @@ class TestSelectMachineType(unittest.TestCase):
         )
 
     def test_number_1_returns_moore(self):
-        # INTENDED (CLAUDE.md: canonical word). FAILS until "1" is mapped to "moore".
         self.assertEqual(run_with_inputs(fsm_designer.select_machine_type, ["1"]), "moore")
 
     def test_number_2_returns_mealy(self):
-        # INTENDED (CLAUDE.md: canonical word). FAILS until "2" is mapped to "mealy".
         self.assertEqual(run_with_inputs(fsm_designer.select_machine_type, ["2"]), "mealy")
 
 
