@@ -1,11 +1,11 @@
 """
 FSM Designer
 
-This serves as the entry point for the FSM Designer.
+Command-line entry point for the FSM Designer.
 
 It prompts the user for a binary string, then for the machine type (Moore or
-Mealy), and hands off to run the machine. The actual FSM simulation is not
-built yet; for now the run step is a placeholder.
+Mealy), builds the matching sequence-detector states, prints the transition
+table and renders the state diagram.
 """
 
 from diagram import render_and_open
